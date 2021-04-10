@@ -9,6 +9,7 @@ const allproject = require('./api/routes/user/allproject');
 const authorize = require('./api/routes/user/authorize');
 const smes = require('./api/routes/user/smes');
 const register = require('./api/routes/user/register');
+const smesDetail = require('./api/routes/user/smesDetail');
 const test = require('./api/routes/test');
 
 const port = 5001;
@@ -21,6 +22,7 @@ app.use(bodyparser.urlencoded({extended:false}));
 
 // call api
 app.use("/test", test);
+app.use("/user/smesDetail", smesDetail);
 app.use("/user/smes", smes);
 app.use("/user/allproject", allproject);
 app.use("/user/login", login);

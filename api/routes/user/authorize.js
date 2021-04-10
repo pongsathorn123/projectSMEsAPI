@@ -5,7 +5,7 @@ const connect = require('../../../core/connect');
 
 router.get("/list", async (req, res) => {
     const sql = `SELECT smes.smesId,smes.userId,smes.title,smes.description,smes.smesType,smes.authorize,user.username, user.name
-    FROM smes INNER JOIN user ON smes.userId=user.userId  ORDER BY authorize desc,smesId`;
+    FROM smes INNER JOIN user ON smes.userId=user.userId  ORDER BY authorize ,smesId desc`;
     const response = await connect.promiseQuery(sql);
     res.status(200).json(response);
 });

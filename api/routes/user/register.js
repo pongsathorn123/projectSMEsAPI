@@ -24,15 +24,15 @@ router.get("/check/:username", async (req, res) => {
     }
 });
 
-router.get("/insert/:username/:password/:name/:email/:tel/:address/:citizen_id/:user_type", async (req, res) => {
+router.get("/insert/:username/:password/:name/:email/:tel/:address/:citizenId/:userType", async (req, res) => {
     const username = req.params.username;
     const password = req.params.password;
     const name = req.params.name;
     const email = req.params.email;
     const tel = req.params.tel;
     const address = req.params.address;
-    const citizen_id = req.params.citizen_id;
-    const user_type = req.params.user_type;
+    const citizenId = req.params.citizenId;
+    const userType = req.params.userType;
  
     let sql = `INSERT INTO user(username, password, name, email, tel, address, citizenId, userType) VALUES (?,?,?,?,?,?,?,?);`;
     let response;
@@ -51,29 +51,5 @@ router.get("/insert/:username/:password/:name/:email/:tel/:address/:citizen_id/:
         res.status(200).json(response);
     }
 });
-
-// router.get("/insert/:username/:password/:name/:email", async (req, res) => {
-//     const username = req.params.username;
-//     const password = req.params.password;
-//     const name = req.params.name;
-//     const email = req.params.email;
-   
-//     let sql = `INSERT INTO user(username, password, name, email, tel) VALUES (?,?,?,?);`;
-//     let response;
-//     if (username === undefined || password === undefined || name === undefined || email === undefined) {
-//         res.json({ error: "variable is undefined" });
-//         return;
-//     } 
-//     else {
-//         if (username != "") {
-//             sql = `INSERT INTO user(username, password, name, email) VALUES (?,?,?,?);`;
-//             response = await connect.promiseQuery(sql, [username, password, name, email,]);
-//         }
-//         else {
-//             response = await connect.promiseQuery(sql, [username, password, name, email]);
-//         }
-//         res.status(200).json(response);
-//     }
-// });
 
 module.exports = router;
