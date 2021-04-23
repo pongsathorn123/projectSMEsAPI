@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const connect = require('../../../core/connect');
 
-router.get("/insert/:userId/:dateStart/:dateEnd/:moneyMax/:moneyMin/:detail/:tel/:email/:facebook/:lindid", async (req, res) => {
+router.get("/insert/:userId/:dateStart/:dateEnd/:moneyMax/:moneyMin/:detail/:tel/:email/:facebook/:lineid", async (req, res) => {
 
     const userId = req.params.userId;
     const dateStart = req.params.dateStart;
@@ -29,7 +29,7 @@ router.get("/insert/:userId/:dateStart/:dateEnd/:moneyMax/:moneyMin/:detail/:tel
         
         }
         else {
-            response = await connect.promiseQuery(sql, [dateStart, dateEnd, moneyMax, moneyMin, detail, tel, email, facebook, lineid]);
+            response = await connect.promiseQuery(sql, [userId, dateStart, dateEnd, moneyMax, moneyMin, detail, tel, email, facebook, lineid]);
         }
         res.status(200).json(response);
     }

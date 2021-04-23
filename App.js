@@ -10,8 +10,9 @@ const authorize = require('./api/routes/user/authorize');
 const smes = require('./api/routes/user/smes');
 const register = require('./api/routes/user/register');
 const smesDetail = require('./api/routes/user/smesDetail');
+const editSmes = require('./api/routes/user/editSmes');
+const myproject = require('./api/routes/user/myproject');
 const test = require('./api/routes/test');
-
 const port = 5001;
 
 const app = express();
@@ -22,6 +23,8 @@ app.use(bodyparser.urlencoded({extended:false}));
 
 // call api
 app.use("/test", test);
+app.use("/user/myproject", myproject);
+app.use("/user/editSmes", editSmes);
 app.use("/user/smesDetail", smesDetail);
 app.use("/user/smes", smes);
 app.use("/user/allproject", allproject);
