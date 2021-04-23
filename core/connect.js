@@ -5,7 +5,7 @@ const pool = mysql.createPool({
     host     : 'test.cedtywdc51j1.us-east-2.rds.amazonaws.com',
     user     : 'admin',
     password : '11223344',
-    database : 'test',
+    database : 'final-project',
     port     : '3306',
     debug    : false,
     multipleStatements: true
