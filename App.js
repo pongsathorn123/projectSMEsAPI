@@ -13,7 +13,7 @@ const smesDetail = require('./api/routes/user/smesDetail');
 const editSmes = require('./api/routes/user/editSmes');
 const myproject = require('./api/routes/user/myproject');
 const test = require('./api/routes/test');
-const port = 5001;
+const port = process.env.PORT || 5001;
 
 const app = express();
 
