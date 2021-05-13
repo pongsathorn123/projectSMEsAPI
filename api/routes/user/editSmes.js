@@ -3,10 +3,9 @@ const router = express.Router();
 const connect = require('../../../core/connect');
 
 
-router.get("/edit/:smesId/:detailId/:title/:description/:dateStart/:dateEnd/:moneyMin/:moneyMax/:detail/:tel/:email/:facebook/:lineid", async (req, res) => {
+router.get("/edit/:smesId/:title/:description/:dateStart/:dateEnd/:moneyMin/:moneyMax/:detail/:tel/:email/:facebook/:lineid", async (req, res) => {
 
     const smesId = req.params.smesId;
-    const detailId = req.params.detailId;
     const title = req.params.title;
     const description = req.params.description;
     const dateStart = req.params.dateStart;
@@ -20,12 +19,12 @@ router.get("/edit/:smesId/:detailId/:title/:description/:dateStart/:dateEnd/:mon
     const lineid = req.params.lineid;
  
     let sql = `UPDATE smes 
-               SET title = ?, description = ?, authorize = 'unverified'
-               WHERE  smesId = ?;
+               SET title = '${title}', description = '${description}', authorize = 'unverified'
+               WHERE  smesId = '${smesId}';
                UPDATE smesdetail 
-               SET dateStart = ?, dateEnd = ?, moneyMin = ?, moneyMax = ?, detail = ?, tel = ?, email = ?, facebook = ?, lineid = ?
-               WHERE  detailId = ?;`;
-    const response = await connect.promiseQuery(sql, [title, description, smesId, dateStart, dateEnd, moneyMin, moneyMax, detail, tel, email, facebook, lineid, detailId]);
+               SET dateStart = '${dateStart}', dateEnd = '${dateEnd}', moneyMin = '${moneyMin}', moneyMax = '${moneyMax}', detail = '${detail}', tel = '${tel}', email = '${email}', facebook = '${facebook}', lineid = '${lineid}'
+               WHERE  smesId = '${smesId}';`;
+    const response = await connect.promiseQuery(sql, [title, description, smesId, dateStart, dateEnd, moneyMin, moneyMax, detail, tel, email, facebook, lineid]);
     res.status(200).json(response);
 
     // let sql2 = `UPDATE smesdetail 

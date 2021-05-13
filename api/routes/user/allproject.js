@@ -83,13 +83,12 @@ router.get("/show2/:smesType", async (req, res) => {
 router.get("/show/:smesId", async (req, res) => {
     let smesId = req.params.smesId;
     const sql = `SELECT smesdetail.*, smes.*, user.name
-                 FROM smesdetail, smes, user
-                 WHERE smesdetail.detailId = smes.smesId
-                 AND smes.smesId = '${smesId}'
-                 AND smes.userId = user.userId`
+                    FROM smesdetail, smes, user
+                    WHERE smesdetail.smesId = ${smesId}
+                    AND smes.smesId = ${smesId}
+                    AND smes.userId = user.userId`;
     let response = await connect.promiseQuery(sql);
     res.status(200).json( { 
-        detailId: response[0].detailId,
         smesId: response[0].smesId,
         userId: response[0].userId,
         name: response[0].name,
