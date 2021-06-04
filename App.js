@@ -13,6 +13,8 @@ const smesData = require('./api/routes/user/smesData');
 const smesDetail = require('./api/routes/user/smesDetail');
 const editSmes = require('./api/routes/user/editSmes');
 const myproject = require('./api/routes/user/myproject');
+const invester = require('./api/routes/user/invester');
+const report = require('./api/routes/user/report');
 const test = require('./api/routes/test');
 const port = process.env.PORT || 5001;
 
@@ -24,6 +26,8 @@ app.use(bodyparser.urlencoded({extended:false}));
 
 // call api
 app.use("/test", test);
+app.use("/user/report", report);
+app.use("/user/invester", invester);
 app.use("/user/myproject", myproject);
 app.use("/user/editSmes", editSmes);
 app.use("/user/smesData", smesData);

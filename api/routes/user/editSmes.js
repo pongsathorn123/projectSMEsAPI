@@ -3,7 +3,7 @@ const router = express.Router();
 const connect = require('../../../core/connect');
 
 
-router.get("/edit/:smesId/:title/:description/:dateStart/:dateEnd/:moneyMin/:moneyMax/:detail/:tel/:email/:facebook/:lineid", async (req, res) => {
+router.get("/edit/:smesId/:title/:description/:dateStart/:dateEnd/:moneyMin/:moneyMax/:detail/:name/:tel/:email/:facebook/:lineid", async (req, res) => {
 
     const smesId = req.params.smesId;
     const title = req.params.title;
@@ -13,6 +13,7 @@ router.get("/edit/:smesId/:title/:description/:dateStart/:dateEnd/:moneyMin/:mon
     const moneyMin = req.params.moneyMin;
     const moneyMax = req.params.moneyMax;
     const detail = req.params.detail;
+    const name = req.params.name;
     const tel = req.params.tel;
     const email = req.params.email;
     const facebook = req.params.facebook;
@@ -22,9 +23,9 @@ router.get("/edit/:smesId/:title/:description/:dateStart/:dateEnd/:moneyMin/:mon
                SET title = '${title}', description = '${description}', authorize = 'unverified'
                WHERE  smesId = '${smesId}';
                UPDATE smesdetail 
-               SET dateStart = '${dateStart}', dateEnd = '${dateEnd}', moneyMin = '${moneyMin}', moneyMax = '${moneyMax}', detail = '${detail}', tel = '${tel}', email = '${email}', facebook = '${facebook}', lineid = '${lineid}'
+               SET dateStart = '${dateStart}', dateEnd = '${dateEnd}', moneyMin = '${moneyMin}', moneyMax = '${moneyMax}', detail = '${detail}', name = '${name}', tel = '${tel}', email = '${email}', facebook = '${facebook}', lineid = '${lineid}'
                WHERE  smesId = '${smesId}';`;
-    const response = await connect.promiseQuery(sql, [title, description, smesId, dateStart, dateEnd, moneyMin, moneyMax, detail, tel, email, facebook, lineid]);
+    const response = await connect.promiseQuery(sql, [title, description, smesId, dateStart, dateEnd, moneyMin, moneyMax, detail, name, tel, email, facebook, lineid]);
     res.status(200).json(response);
 
     // let sql2 = `UPDATE smesdetail 

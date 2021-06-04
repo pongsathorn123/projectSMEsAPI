@@ -6,7 +6,7 @@ router.get("/login/:username/:password", async (req, res) => {
     let username = req.params.username;
     let password = req.params.password;
 
-    const sql = `SELECT userId,name,userType,username
+    const sql = `SELECT *
                 FROM user 
                 WHERE ( username='${username}' )
                 AND ( password='${password}');`;
@@ -17,7 +17,8 @@ router.get("/login/:username/:password", async (req, res) => {
             userId: response[0].userId,
             username: response[0].username,
             name: response[0].name,
-            userType: response[0].userType
+            userType: response[0].userType,
+            authorize: response[0].authorize
         });
     }else{
         res.status(200).json( {   
@@ -53,6 +54,32 @@ router.get("/info/:userId", async (req, res) => {
     }
 });
 
+router.get("/list", async (req, res) => {
+
+    const sql = `SELECT *
+                FROM user  
+                ORDER BY authorize ;`;
+    let response = await connect.promiseQuery(sql);
+    let list = [];
+    response.map((x,index) => {
+        list.push({ 
+            seq: index+1,
+            userId: x.userId,
+            username: x.username,
+            password: x.password,
+            name: x.name,
+            email: x.email,
+            tel: x.tel,
+            address: x.address,
+            citizenId: x.citizenId,
+            userType: x.userType,
+            authorize: x.authorize,
+            
+        })
+    })
+    res.status(200).json(list);
+});
+
 router.get("/edit/:userId/:password/:name/:email/:tel/:address", async (req, res) => {
 
     const userId = req.params.userId;
@@ -69,4 +96,26 @@ router.get("/edit/:userId/:password/:name/:email/:tel/:address", async (req, res
     res.status(200).json(response);
 });
 
+router.get("/promote/:user_Id", async (req, res) => {
+    const userId = req.params.user_Id;
+    const sql = `UPDATE user SET authorize = 'verified' WHERE userId = '${userId}'`;
+    if (userId === undefined) {
+        res.json({ error: "variable is undefined" });
+        return;
+    }
+    const response = await connect.promiseQuery(sql, [userId]);
+    res.status(200).json(response);
+});
+
+
+router.get("/demote/:user_Id", async (req, res) => {
+    const userId = req.params.user_Id;
+    const sql = `UPDATE user SET authorize = 'unverifide' WHERE userId = '${userId}'`;
+    if (userId === undefined) {
+        res.json({ error: "variable is undefined" });
+        return;
+    }
+    const response = await connect.promiseQuery(sql, [userId]);
+    res.status(200).json(response);
+});
 module.exports = router;

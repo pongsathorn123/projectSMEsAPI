@@ -24,17 +24,16 @@ router.get("/check/:username", async (req, res) => {
     }
 });
 
-router.get("/insert/:username/:password/:name/:email/:tel/:address/:citizenId/:userType", async (req, res) => {
+router.get("/insert/:username/:password/:name/:email/:tel/:citizenId/:userType", async (req, res) => {
     const username = req.params.username;
     const password = req.params.password;
     const name = req.params.name;
     const email = req.params.email;
     const tel = req.params.tel;
-    const address = req.params.address;
     const citizenId = req.params.citizenId;
     const userType = req.params.userType;
  
-    let sql = `INSERT INTO user(username, password, name, email, tel, address, citizenId, userType) VALUES (?,?,?,?,?,?,?,?);`;
+    let sql = `INSERT INTO user(username, password, name, email, tel, citizenId, userType) VALUES (?,?,?,?,?,?,?);`;
     let response;
     if (username === undefined || password === undefined || name === undefined) {
         res.json({ error: "variable is undefined" });
@@ -42,11 +41,11 @@ router.get("/insert/:username/:password/:name/:email/:tel/:address/:citizenId/:u
     } 
     else {
         if (username != "") {
-            sql = `INSERT INTO user(username, password, name, email, tel, address, citizenId, userType) VALUES (?,?,?,?,?,?,?,?);`;
-            response = await connect.promiseQuery(sql, [username, password, name, email, tel, address, citizenId, userType]);
+            sql = `INSERT INTO user(username, password, name, email, tel, citizenId, userType) VALUES (?,?,?,?,?,?,?);`;
+            response = await connect.promiseQuery(sql, [username, password, name, email, tel, citizenId, userType]);
         }
         else {
-            response = await connect.promiseQuery(sql, [username, password, name, email, tel, address, citizenId, userType]);
+            response = await connect.promiseQuery(sql, [username, password, name, email, tel, citizenId, userType]);
         }
         res.status(200).json(response);
     }

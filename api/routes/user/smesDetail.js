@@ -19,7 +19,7 @@ router.get("/data", async (req, res) => {
 });
   
 
-router.get("/insert/:smesId/:userId/:dateStart/:dateEnd/:moneyMax/:moneyMin/:detail/:tel/:email/:facebook/:lineid", async (req, res) => {
+router.get("/insert/:smesId/:userId/:dateStart/:dateEnd/:moneyMax/:moneyMin/:detail/:name/:tel/:email/:facebook/:lineid", async (req, res) => {
 
     const smesId = req.params.smesId;
     const userId = req.params.userId;
@@ -28,13 +28,14 @@ router.get("/insert/:smesId/:userId/:dateStart/:dateEnd/:moneyMax/:moneyMin/:det
     const moneyMax = req.params.moneyMax;
     const moneyMin = req.params.moneyMin;
     const detail = req.params.detail;
+    const name = req.params.name;
     const tel = req.params.tel;
     const email = req.params.email;
     const facebook = req.params.facebook;
     const lineid = req.params.lineid;
 
 
-    let sql = `INSERT INTO smesdetail(smesId, userId, dateStart, dateEnd, moneyMax, moneyMin, detail, tel, email, facebook, lineid) VALUES (?,?,?,?,?,?,?,?,?,?,?);`;
+    let sql = `INSERT INTO smesdetail(smesId, userId, dateStart, dateEnd, moneyMax, moneyMin, detail, name, tel, email, facebook, lineid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);`;
     let response;
     if (dateStart === undefined) {
         res.json({ error: "variable is undefined" });
@@ -42,12 +43,12 @@ router.get("/insert/:smesId/:userId/:dateStart/:dateEnd/:moneyMax/:moneyMin/:det
     } 
     else {
         if (dateStart != "") {
-            sql = `INSERT INTO smesdetail(smesId, userId, dateStart, dateEnd, moneyMax, moneyMin, detail, tel, email, facebook, lineid) VALUES (?,?,?,?,?,?,?,?,?,?,?);`;
-            response = await connect.promiseQuery(sql, [smesId,userId, dateStart, dateEnd, moneyMax, moneyMin, detail, tel, email, facebook, lineid]);
+            sql = `INSERT INTO smesdetail(smesId, userId, dateStart, dateEnd, moneyMax, moneyMin, detail, name, tel, email, facebook, lineid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);`;
+            response = await connect.promiseQuery(sql, [smesId,userId, dateStart, dateEnd, moneyMax, moneyMin, detail, name, tel, email, facebook, lineid]);
         
         }
         else {
-            response = await connect.promiseQuery(sql, [smesId,userId, dateStart, dateEnd, moneyMax, moneyMin, detail, tel, email, facebook, lineid]);
+            response = await connect.promiseQuery(sql, [smesId,userId, dateStart, dateEnd, moneyMax, moneyMin, detail, name, tel, email, facebook, lineid]);
         }
         res.status(200).json(response);
     }
