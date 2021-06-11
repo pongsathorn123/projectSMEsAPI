@@ -88,5 +88,22 @@ router.get("/add/:year/:month/:no1/:no2/:no3/:asean/:china/:usa/:japan/:eu27", a
         }
 });
 
+router.get("/show", async (req, res) => {
+    const sql = `SELECT invester.smesId, smes.title, (Jan+Feb+Mar+Apr+May+Jun+Jul+Aug+Sep+Oct+Nov+Dece)as count 
+                 FROM invester,smes 
+                 WHERE invester.smesId = smes.smesId 
+                 ORDER BY count desc LIMIT 0,3 ;`
+                let response = await connect.promiseQuery(sql);
+                let list = [];
+                response.map((x,index) => {
+                    list.push({ 
+                        seq: index+1,
+                        smesId: x.smesId,
+                        title: x.title,
+                        count: x.count,
+                    })
+                })
+                res.status(200).json(list);
+            });
 
 module.exports = router;
